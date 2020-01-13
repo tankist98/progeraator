@@ -17,7 +17,8 @@ public:
 	Manguvali(); // Loob 2 mõõtmelise massiivi ja täidab selle kohad '-'
 	void valjasta(); // Prindib välja koordinaatidega tabeli
 	int onKaotatud(); // Kontrollib, kunas saavad laevad manguväljalt otsa ja annab teada voidust voi kaotusest
-private:
+	void pakkumine(char x, char y);
+	void asenda(char manguvali[10][10]);
 	char manguvali[10][10];
 };
 
@@ -42,6 +43,46 @@ void Manguvali::valjasta(){
 	cout << endl;
 }
 
+void Manguvali::asenda(char manguvali[10][10]){
+	int x, y;
+	for (int i = 0; i < 10; i++){
+		for (int j = 0; j < 10; j++){
+			cin >> x >> y;
+			manguvali[x][y] = '+';
+		}
+	}
+	cout << manguvali[i][j] << endl;
+}
+
+/*void Manguvali::pakkumine(char y, char x) {
+    int x_cord = x - '0'; //Converts char to int
+    char y_[] = {'0','1','2','3','4','5','6','7','8','9'};
+
+    //So the X cords already int. This for loop goes through y_cords[] to find the proper y value
+    //because the y value is passed to the function as a letter
+    for (int i = 0; i < 10; i++) {
+        if (y_[i] == y) {
+            if (manguvali[i][x_cord] == '~') { manguvali[i][x_cord] = '#'; } // If you guess water, show no hit
+            if (manguvali[i][x_cord] == '+') { manguvali[i][x_cord] = 'X'; } // If you guess the ship, you hit!
+        }
+    }
+    valjasta();
+}
+
+/*void Manguvali::asenda(char y, char x){
+	int y_cord;
+    int x_cord = x - '0';
+    char y_[] = {'0','1','2','3','4','5','6','7','8','9'};
+
+    for (int i = 0; i < 10; i++) {
+        if (y_[i] == y) {
+            manguvali[i][x_cord] = '+';
+			}
+		}
+		valjasta();
+}*/
+
+
 
 int Manguvali::onKaotatud() {
     for (int i = 0; i < 10; i++) {
@@ -53,95 +94,6 @@ int Manguvali::onKaotatud() {
     }
     return 1;
 }
-
-class Laevad{
-
-private:
-
-	int numOfHits;
-	ShipDirection shipDir;
-	int startRow;
-	int startCol;
-	string shipType;
-
-public:
-
-	Laevad()
-		{
-		shipType = "";
-		shipDir = VERTICAL;
-		startRow = 0;
-		startCol = 0;
-		numOfHits = 0;
-		}
-
-	Laevad(int nHits, string name)
-		{
-		shipType = name;
-		shipDir = VERTICAL;
-		startRow = 0;
-		startCol = 0;
-		numOfHits = nHits;
-		}
-
-
-
-	void setStartRow(int sR)
-		{
-		startRow = sR;
-		}
-
-	int getStartRow()
-		{
-		return startRow;
-		}
-
-	void setStartCol(int sC)
-		{
-		startCol = sC;
-		}
-
-	int getStartCol()
-		{
-		return startCol;
-		}
-
-	int getNumberOfHits()
-		{
-		return numOfHits;
-		}
-
-	ShipDirection getShipDir()
-		{
-		return shipDir;
-		}
-
-	void setShipDir(ShipDirection sD)
-		{
-		shipDir = sD;
-		}
-
-	string getNameOfShip()
-		{
-		return shipType;
-		}
-
-	void setNameOfShip(string nOS)
-		{
-		shipType = nOS;
-		}
-	};
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -164,10 +116,18 @@ bool soovib_uuesti() {
 }
 
 int main(){
-
+int x, y;
 do{
 	Manguvali manguvali1;
 	manguvali1.valjasta();
+	manguvali1.asenda();
+
+
+
+
+
+
+
 } while(soovib_uuesti());
 
 
