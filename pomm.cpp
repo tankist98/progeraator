@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <limits>
+#include <ostream>
 
 using namespace std;
 
@@ -114,21 +115,22 @@ bool soovib_uuesti() {
 	} while (vale_sisend);
 	return sisend == 'Y' || sisend == 'y';
 }
-
+void kirjuta_faili(string failinimi, char* manguvali1){
+	ofstream valjund(failinimi, ios::app);
+	valjund << manguvali << endl;
+	//valjund << manguvali2 << endl;
+	valjund.close();
+}
 int main(){
-int x, y;
-do{
-	Manguvali manguvali1;
-	manguvali1.valjasta();
-	manguvali1.asenda();
+	string valjundfail = "pommitamine.txt"
+	int x, y;
+	do{
+		Manguvali manguvali1;
+		manguvali1.valjasta();
+		manguvali1.asenda();
 
-
-
-
-
-
-
-} while(soovib_uuesti());
+		kirjuta_faili(valjundfail, manguvali1);
+	} while(soovib_uuesti());
 
 
 	return 0;
