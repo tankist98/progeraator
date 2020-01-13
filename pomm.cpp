@@ -9,29 +9,20 @@
 
 #include <iostream>
 #include <limits>
-#include <ostream>
+#include <fstream>
 
 using namespace std;
 
 class Manguvali{
 public:
-	Manguvali(); // Loob 2 mõõtmelise massiivi ja täidab selle kohad '-'
-	void valjasta(); // Prindib välja koordinaatidega tabeli
-	int onKaotatud(); // Kontrollib, kunas saavad laevad manguväljalt otsa ja annab teada voidust voi kaotusest
-	void pakkumine(char x, char y);
-	void asenda(char manguvali[10][10]);
-	char manguvali[10][10];
-};
-
-Manguvali::Manguvali(){
+	Manguvali(){  // Loob 2 mõõtmelise massiivi ja täidab selle kohad '-'
 	for (int i = 0; i < 10; i++){
 		for (int j = 0; j < 10; j++){
 			manguvali[i][j] = '-';
 			}
 		}
-}
-
-void Manguvali::valjasta(){
+	}
+	void valjasta(){  // Prindib välja koordinaatidega tabeli
 	char y[] = {'0','1','2','3','4','5','6','7','8','9'};
 	cout << "X 1 2 3 4 5 6 7 8 9 10" << endl;
 	for (int i = 0; i < 10; i++){
@@ -42,33 +33,47 @@ void Manguvali::valjasta(){
 		cout << endl;
 	}
 	cout << endl;
-}
+	}
+	int onKaotatud(){  // Kontrollib, kunas saavad laevad manguväljalt otsa ja annab teada voidust voi kaotusest
+    	for (int i = 0; i < 10; i++) {
+        	for (int j = 0; j < 10; j++) {
+            	if (manguvali[i][j] == '+') {
+              	  return 0;
+          	  }
+       	 	}
+   	 }
+   	 return 1;
+	}
+	void pakkumine(char x, char y){
+    		int x_cord = x - '0'; //Converts char to int
+    		char y_[] = {'0','1','2','3','4','5','6','7','8','9'};
 
-void Manguvali::asenda(char manguvali[10][10]){
+    		//So the X cords already int. This for loop goes through y_cords[] to find the proper y value
+    		//because the y value is passed to the function as a letter
+    		for (int i = 0; i < 10; i++) {
+        		if (y_[i] == y) {
+            		if (manguvali[i][x_cord] == '~') { manguvali[i][x_cord] = '#'; } // If you guess water, show no hit
+       	     		if (manguvali[i][x_cord] == '+') { manguvali[i][x_cord] = 'X'; } // If you guess the ship, you hit!
+       		 }
+    		}
+   		 valjasta();
+	}
+	void asenda(char manguvali[10][10]){
 	int x, y;
 	for (int i = 0; i < 10; i++){
 		for (int j = 0; j < 10; j++){
+			cout << "Sisesta x ja y koordinaadid tyhikuga: ";
 			cin >> x >> y;
 			manguvali[x][y] = '+';
+			cout << manguvali[i][j] << endl;
 		}
 	}
-	cout << manguvali[i][j] << endl;
-}
 
-/*void Manguvali::pakkumine(char y, char x) {
-    int x_cord = x - '0'; //Converts char to int
-    char y_[] = {'0','1','2','3','4','5','6','7','8','9'};
-
-    //So the X cords already int. This for loop goes through y_cords[] to find the proper y value
-    //because the y value is passed to the function as a letter
-    for (int i = 0; i < 10; i++) {
-        if (y_[i] == y) {
-            if (manguvali[i][x_cord] == '~') { manguvali[i][x_cord] = '#'; } // If you guess water, show no hit
-            if (manguvali[i][x_cord] == '+') { manguvali[i][x_cord] = 'X'; } // If you guess the ship, you hit!
-        }
-    }
-    valjasta();
 }
+	char manguvali[10][10];
+};
+
+/*void Manguvali::pakkumine(char y, char x)
 
 /*void Manguvali::asenda(char y, char x){
 	int y_cord;
@@ -82,22 +87,6 @@ void Manguvali::asenda(char manguvali[10][10]){
 		}
 		valjasta();
 }*/
-
-
-
-int Manguvali::onKaotatud() {
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            if (manguvali[i][j] == '+') {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-
-
-
 
 bool soovib_uuesti() {
 
@@ -115,22 +104,26 @@ bool soovib_uuesti() {
 	} while (vale_sisend);
 	return sisend == 'Y' || sisend == 'y';
 }
-void kirjuta_faili(string failinimi, char* manguvali1){
-	ofstream valjund(failinimi, ios::app);
-	valjund << manguvali << endl;
+/*void kirjuta_faili(string failinimi, Manguvali manguvali1){
+	ofstream valjund;
+	valjund.open(failinimi);
+	valjund << manguvali1 << endl;
 	//valjund << manguvali2 << endl;
 	valjund.close();
-}
+}*/
 int main(){
-	string valjundfail = "pommitamine.txt"
+	string valjundfail = "pommitamine.txt";
 	int x, y;
 	do{
 		Manguvali manguvali1;
 		manguvali1.valjasta();
-		manguvali1.asenda();
+		//manguvali1.asenda();
 
-		kirjuta_faili(valjundfail, manguvali1);
+		//kirjuta_faili(valjundfail, manguvali1);
 	} while(soovib_uuesti());
+	if (!(soovib_uuesti())){
+		cout << "Head aega! ";
+	}
 
 
 	return 0;
