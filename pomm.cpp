@@ -55,12 +55,82 @@ int Manguvali::onKaotatud() {
 }
 
 class Laevad{
-public:
-	void asetaLaevad();
-	void pakkumine();
+
 private:
-	int laevaSuurused[] = {5,4,3,3,2};
-};
+
+	int numOfHits;
+	ShipDirection shipDir;
+	int startRow;
+	int startCol;
+	string shipType;
+
+public:
+
+	Laevad()
+		{
+		shipType = "";
+		shipDir = VERTICAL;
+		startRow = 0;
+		startCol = 0;
+		numOfHits = 0;
+		}
+
+	Laevad(int nHits, string name)
+		{
+		shipType = name;
+		shipDir = VERTICAL;
+		startRow = 0;
+		startCol = 0;
+		numOfHits = nHits;
+		}
+
+
+
+	void setStartRow(int sR)
+		{
+		startRow = sR;
+		}
+
+	int getStartRow()
+		{
+		return startRow;
+		}
+
+	void setStartCol(int sC)
+		{
+		startCol = sC;
+		}
+
+	int getStartCol()
+		{
+		return startCol;
+		}
+
+	int getNumberOfHits()
+		{
+		return numOfHits;
+		}
+
+	ShipDirection getShipDir()
+		{
+		return shipDir;
+		}
+
+	void setShipDir(ShipDirection sD)
+		{
+		shipDir = sD;
+		}
+
+	string getNameOfShip()
+		{
+		return shipType;
+		}
+
+	void setNameOfShip(string nOS)
+		{
+		shipType = nOS;
+		}
+	};
 
 
 
@@ -103,20 +173,3 @@ do{
 
 	return 0;
 }
-//Initialize default variables
-  //Create game board
-
-  //Loop till all ships are placed
-    //Draw board
-    //A player places ships
-    // Toggle to next player
-
-  //Game Loop Start
-    //Player X inputs valid attack grid
-    // Check to see if attack is a hit
-    // Remove/add damage to hit ships
-    // Redraw game board
-    // Check to see if game is over
-        // If game over - exit loop/end program
-    // Toggle next player's turn
-  //Game Loop Return
